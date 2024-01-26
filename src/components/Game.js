@@ -6,12 +6,12 @@ function Game() {
   const [xIsNext, setXIsNext] = useState(true);
   const [winner, setWinner] = useState(null);
   console.log(squares);
-  //Declaring a Winner
+  // Declaring a Winner
   useEffect(() => {
     const newWinner = calculateWinner(squares);
     setWinner(newWinner);
-  }, [squares]);
-  console.log(winner);
+    console.log(newWinner, "2");
+  });
 
   //function to check if a player has won.
   //If a player has won, we can display text such as “Winner: X” or “Winner: O”.
@@ -43,12 +43,13 @@ function Game() {
   //Handle player
   const handleClick = (i) => {
     let xo = squares;
-    xo[i] = xIsNext ? "X" : "O";
-    setXIsNext(!xIsNext);
-    setSquares(xo);
     if (calculateWinner(xo) || xo[i]) {
       return;
     }
+    xo[i] = xIsNext ? "X" : "O";
+    setXIsNext(!xIsNext);
+    setSquares(xo);
+
     console.log(i);
     console.log(xo);
   };
