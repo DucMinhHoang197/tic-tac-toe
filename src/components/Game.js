@@ -11,6 +11,7 @@ function Game() {
     const newWinner = calculateWinner(squares);
     setWinner(newWinner);
   }, [squares]);
+  console.log(winner);
 
   //function to check if a player has won.
   //If a player has won, we can display text such as “Winner: X” or “Winner: O”.
@@ -45,6 +46,9 @@ function Game() {
     xo[i] = xIsNext ? "X" : "O";
     setXIsNext(!xIsNext);
     setSquares(xo);
+    if (calculateWinner(xo) || xo[i]) {
+      return;
+    }
     console.log(i);
     console.log(xo);
   };
