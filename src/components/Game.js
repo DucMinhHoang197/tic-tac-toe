@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import Board from "./Board";
-
+// import { useDeepCompareEffect } from "react-use";
 function Game() {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
   const [winner, setWinner] = useState(null);
-  console.log(squares);
+
   // Declaring a Winner
   useEffect(() => {
     const newWinner = calculateWinner(squares);
     setWinner(newWinner);
     console.log(newWinner, "2");
-  });
-
+  }, [squares]);
+  console.log(squares);
+  // useDeepCompareEffect(() => {
+  //   const newWinner = calculateWinner(squares);
+  //   setWinner(newWinner);
+  // }, [squares]);
   //function to check if a player has won.
   //If a player has won, we can display text such as “Winner: X” or “Winner: O”.
   //Input: squares: given an array of 9 squares:'X', 'O', or null.
@@ -42,7 +46,7 @@ function Game() {
 
   //Handle player
   const handleClick = (i) => {
-    let xo = squares;
+    let xo = [...squares];
     if (calculateWinner(xo) || xo[i]) {
       return;
     }
@@ -55,7 +59,7 @@ function Game() {
   };
 
   //Restart game
-  const handlRestart = () => {
+  const handleRestart = () => {
     setSquares(Array(9).fill(null));
     setXIsNext(true);
     setWinner(null);
@@ -68,7 +72,7 @@ function Game() {
         <span className="player">Next player is: {xIsNext ? "X" : "O"}</span>
         <Board squares={squares} handleClick={handleClick} />
       </div>
-      <button onClick={handlRestart} className="restart-btn">
+      <button onClick={handleRestart} className="restart-btn">
         Restart
       </button>
     </div>
